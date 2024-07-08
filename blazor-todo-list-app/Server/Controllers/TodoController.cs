@@ -13,12 +13,18 @@ namespace blazor_todo_list_app.Server.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
+        #region members
         private readonly ITodoService _todoService;
+        #endregion
 
+        #region constructor
         public TodoController(ITodoService todoService)
         {
             _todoService = todoService;
         }
+        #endregion
+
+        #region endpoints
         [HttpGet("GetTodos")]
         public async Task<ActionResult<IEnumerable<Task_>>> GetTodos()
         {
@@ -74,6 +80,6 @@ namespace blazor_todo_list_app.Server.Controllers
             await _todoService.DeleteTodoById(id);
             return Ok("Silme Basarili");
         }
-
+        #endregion
     }
 }

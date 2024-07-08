@@ -9,13 +9,20 @@ namespace blazor_todo_list_app.Server.Services.Concrete
 {
     public class TodoService : ITodoService
     {
+        #region members
         private readonly ITodoRepository _repository;
         private readonly IMailService _mailService;
+        #endregion
+
+        #region constructor
         public TodoService(ITodoRepository repository, IMailService mailService)
         {
             _repository = repository;
             _mailService = mailService;
         }
+        #endregion
+
+        #region methods
         public async Task<IEnumerable<Task_>> GetTodos()
         {
             return await _repository.GetTodos();
@@ -42,5 +49,6 @@ namespace blazor_todo_list_app.Server.Services.Concrete
         {
             return await _repository.GetAllTasksView();
         }
+        #endregion
     }
 }

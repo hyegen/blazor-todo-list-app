@@ -6,32 +6,29 @@ namespace blazor_todo_list_app.Server.Services.Concrete
 {
     public class MailService : IMailService
     {
+        #region members
         private readonly SmtpClient _smtpClient;
         private readonly string _fromEmail;
+        #endregion
 
+        #region constructor
         public MailService(IConfiguration configuration)
         {
-            //var smtpServer = configuration["SmtpSettings:Server"];
-            //var smtpPort = int.Parse(configuration["SmtpSettings:Port"]);
-            //var smtpUsername = configuration["SmtpSettings:Username"];
-            //var smtpPassword = configuration["SmtpSettings:Password"];
-            //_fromEmail = configuration["SmtpSettings:FromEmail"];
-
             var smtpServer = configuration["SmtpSettings:Server"];
             var smtpPort = int.Parse(configuration["SmtpSettings:Port"]);
-            var smtpUsername = configuration["SmtpSettings:Username"];
             var smtpPassword = configuration["SmtpSettings:Password"];
             _fromEmail = configuration["SmtpSettings:FromEmail"];
 
             _smtpClient = new SmtpClient(smtpServer, smtpPort)
             {
                 UseDefaultCredentials = false,
-                // Credentials = new NetworkCredential(smtpUsername, smtpPassword),
                 Credentials = new NetworkCredential(_fromEmail, smtpPassword),
                 EnableSsl = true
             };
         }
+        #endregion
 
+        #region methods
         public async Task SendEmailAsync(string toEmail, string subject, string body)
         {
             try
@@ -51,7 +48,7 @@ namespace blazor_todo_list_app.Server.Services.Concrete
             {
                 throw;
             }
-
         }
+        #endregion
     }
 }

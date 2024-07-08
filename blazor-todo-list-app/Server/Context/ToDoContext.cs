@@ -13,11 +13,15 @@ namespace Context
 {
     public class ToDoContext : DbContext
     {
+        #region constructor
         public ToDoContext(DbContextOptions<ToDoContext> options)
-             : base(options)
+     : base(options)
         {
 
         }
+        #endregion
+
+        #region overriden methods
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var configuration = new ConfigurationBuilder()
@@ -44,11 +48,13 @@ namespace Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ToDoContext).Assembly);
         }
+        #endregion
+
+        #region entities
         public DbSet<User> Users { get; set; }
         public DbSet<Task_> Tasks { get; set; }
         public DbSet<SubTask> SubTasks { get; set; }
         public DbSet<Comment> Comments { get; set; }
-
-
+        #endregion
     }
 }

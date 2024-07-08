@@ -8,12 +8,18 @@ namespace blazor_todo_list_app.Server.Data.Repositories
 {
     public class TodoRepository : ITodoRepository
     {
+        #region members
         private readonly ToDoContext _todoContext;
+        #endregion
 
+        #region constructor
         public TodoRepository(ToDoContext todoContext)
         {
             _todoContext = todoContext;
         }
+        #endregion
+
+        #region methods
         public async Task<IEnumerable<Task_>> GetTodos()
         {
             return await _todoContext.Tasks.ToListAsync();
@@ -57,5 +63,6 @@ namespace blazor_todo_list_app.Server.Data.Repositories
                           });
             return result;
         }
+        #endregion
     }
 }
