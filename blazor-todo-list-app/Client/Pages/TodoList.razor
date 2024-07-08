@@ -19,7 +19,7 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <button @onclick="AddComment" class="btn btn-warning mx-2" disabled="@(!isRowSelected)">
+                    <button @onclick="showPopupUpdateTask" class="btn btn-warning mx-2" disabled="@(!isRowSelected)">
                         <i class="fa fa-edit"></i> Update Task
                     </button>
                 </li>
@@ -59,19 +59,19 @@ else
             @foreach (var todo in todos)
             {
                 <tr class="@GetSelectedClass(todo)" @onclick="() => SelectRow(todo)">
-                    <td>@todo.UserId</td>
+                    <td>@todo.Id</td>
                     <td>@todo.CommentId</td>
                     <td>@todo.TaskName</td>
                     <td>@todo.Description</td>
                     <td>@todo.Status</td>
                     <td>@todo.Priority</td>
                     <td>@todo.IsCompleted</td>
-                    <td>
-                        <button @onclick="() => ShowAddCommentModal(todo)" class="btn btn-sm btn-danger">
-                            <i class="fa fa-trash"></i>
-                            Add a Comment
-                        </button>
-                    </td>
+                    @*         <td>
+            <button @onclick="() => ShowAddCommentModal(todo)" class="btn btn-sm btn-danger">
+            <i class="fa fa-trash"></i>
+            Add a Comment
+            </button>
+            </td> *@
                 </tr>
             }
         </tbody>
@@ -94,27 +94,23 @@ else
         Modal.Show<AddTask>("Görev - Yeni");
     }
 
+    private async Task showPopupUpdateTask()
+    {
+        if (selectedTodo != null)
+        {
+            ModalParameters modalParameters = new ModalParameters();
+            modalParameters.Add("selectedId", selectedTodo.Id);
+            Modal.Show<UpdateTask>("Güncelle", modalParameters);
+        }
+    }
     private async Task DeleteSelectedTodo()
     {
-        var confirmModal = Modal_.Show<ConfirmationModal>("Silmek İstediğinize Eminmisiniz?");
-
-        var modalResult = confirmModal.Result;
-
-        if (modalResult.IsCanceled == false)
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Silmek istediğinize eminmisiniz?");
+        if (confirmed)
         {
             await Http.DeleteAsync($"https://localhost:7000/api/todo/DeleteTodo/{selectedTodo.Id}");
             todos.Remove(selectedTodo);
             selectedTodo = null;
-
-        }
-    }
-
-
-    private async Task AddComment()
-    {
-        if (selectedTodo != null)
-        {
-
         }
     }
 

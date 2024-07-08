@@ -1,4 +1,5 @@
-﻿using blazor_todo_list_app.Entities.Entities;
+﻿using blazor_todo_list_app.Entities.Dtos;
+using blazor_todo_list_app.Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,10 +25,17 @@ namespace blazor_todo_list_app.Server.Controllers
             return Ok(await _todoService.GetTodos());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetTodoById/{id}")]
         public async Task<ActionResult<Task_>> GetTodoById(int id)
         {
             return Ok(await _todoService.GetTodoById(id));
+        }
+
+        [HttpGet("GetAllTasksView")]
+        public async Task<ActionResult<IEnumerable<GetAllTaskDto>>> GetAllTasksView()
+        {
+            return Ok(await _todoService.GetAllTasksView());
         }
 
         [HttpPost("AddTodo")]
@@ -45,8 +53,9 @@ namespace blazor_todo_list_app.Server.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Task_>> UpdateTodo(int id, Task_ todo)
+        [HttpPut]
+        [Route("UpdateTodo/{id}")]
+        public async Task<ActionResult<Task_>> UpdateTodoById(int id, Task_ todo)
         {
             if (id != todo.Id)
             {
@@ -62,5 +71,6 @@ namespace blazor_todo_list_app.Server.Controllers
             await _todoService.DeleteTodoById(id);
             return Ok("Silme Basarili");
         }
+
     }
 }

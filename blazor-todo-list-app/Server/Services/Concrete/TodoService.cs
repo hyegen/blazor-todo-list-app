@@ -1,4 +1,5 @@
-﻿using blazor_todo_list_app.Entities.Entities;
+﻿using blazor_todo_list_app.Entities.Dtos;
+using blazor_todo_list_app.Entities.Entities;
 using blazor_todo_list_app.Server.Data.Interfaces;
 using Services.Interfaces;
 
@@ -35,6 +36,11 @@ namespace blazor_todo_list_app.Server.Services.Concrete
         public async Task DeleteTodoById(int id)
         {
             await _repository.DeleteTodoById(id);
+        }
+
+        public async Task<IEnumerable<GetAllTaskDto>> GetAllTasksView()
+        {
+            return await _repository.GetAllTasksView();
         }
     }
 }
