@@ -44,6 +44,9 @@ namespace blazor_todo_list_app.Server.Controllers
             try
             {
                 var res = await _todoService.AddTodo(todo);
+
+
+
                 return Ok("Basarili");
             }
             catch (Exception ex)

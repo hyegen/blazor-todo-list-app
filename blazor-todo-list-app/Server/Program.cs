@@ -1,6 +1,7 @@
 using blazor_todo_list_app.Server.Data.Interfaces;
 using blazor_todo_list_app.Server.Data.Repositories;
 using blazor_todo_list_app.Server.Services.Concrete;
+using blazor_todo_list_app.Server.Services.Interfaces;
 using Blazored.Modal;
 using Context;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<IMailService, MailService>();
 
 builder.Services.AddBlazoredModal();
 
