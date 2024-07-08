@@ -41,7 +41,6 @@ namespace blazor_todo_list_app.Server.Services.Concrete
                     IsBodyHtml = true
                 };
                 mailMessage.To.Add(toEmail);
-                _smtpClient.EnableSsl = true;
                 await _smtpClient.SendMailAsync(mailMessage);
             }
             catch (Exception ex)
