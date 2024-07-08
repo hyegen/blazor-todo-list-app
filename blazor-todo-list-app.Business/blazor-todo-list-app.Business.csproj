@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{235F29D5-B878-4899-96DF-F7ACB0B2843F}</ProjectGuid>
+    <ProjectGuid>{B725E9C8-8E9D-4BB6-A503-699C9126A7F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>blazor_todo_list_app.Entities</RootNamespace>
-    <AssemblyName>blazor-todo-list-app.Entities</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>blazor_todo_list_app.Business</RootNamespace>
+    <AssemblyName>blazor-todo-list-app.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,13 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Entities\Comment.cs" />
-    <Compile Include="Entities\Interfaces\IEntity.cs" />
-    <Compile Include="Entities\SubTask.cs" />
-    <Compile Include="Entities\Task_.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\blazor-todo-list-app\Server\blazor-todo-list-app.Server.csproj">
+      <Project>{addd7996-46b6-483e-b4a8-60e89b6048c6}</Project>
+      <Name>blazor-todo-list-app.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

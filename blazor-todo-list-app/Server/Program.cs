@@ -1,7 +1,10 @@
-using blazor_todo_list_app.Server.ToDoContext;
-using Microsoft.AspNetCore.ResponseCompression;
+using blazor_todo_list_app.Server.Data.Interfaces;
+using blazor_todo_list_app.Server.Data.Repositories;
+using blazor_todo_list_app.Server.Services.Concrete;
+using Blazored.Modal;
+using Context;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +16,23 @@ builder.Services.AddDbContext<ToDoContext>(options =>
          options.UseSqlServer(builder.Configuration.GetConnectionString("sqlconnection")));
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+
+builder.Services.AddBlazoredModal();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ToDoPolicy",
+        builder =>
+        {
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+                .SetIsOriginAllowedToAllowWildcardSubdomains();
+        });
+});
+
 var app = builder.Build();
+app.UseCors("ToDoPolicy");
 
 if (app.Environment.IsDevelopment())
 {

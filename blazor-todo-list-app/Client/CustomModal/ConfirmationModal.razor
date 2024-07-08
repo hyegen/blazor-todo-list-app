@@ -1,0 +1,20 @@
+﻿<div class="row">
+    <div class="col-md-6">
+        <button @onclick="Yes" class="btn btn-secondary" style="min-width:120px"> Evet</button>
+    </div>
+    <div class="col-md-6">
+        <button @onclick="No" class="btn btn-secondary" style="min-width:120px"> Hayır</button>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance ModalInstance { get; set; }
+    void Yes()
+    {
+        ModalInstance.CloseAsync();
+    }
+    void No()
+    {
+        ModalInstance.CancelAsync();
+    }
+}

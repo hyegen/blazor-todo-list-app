@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-todo-list-app.Server", "blazor-todo-list-app\Server\blazor-todo-list-app.Server.csproj", "{ADDD7996-46B6-483E-B4A8-60E89B6048C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazor-todo-list-app.Server", "blazor-todo-list-app\Server\blazor-todo-list-app.Server.csproj", "{ADDD7996-46B6-483E-B4A8-60E89B6048C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-todo-list-app.Client", "blazor-todo-list-app\Client\blazor-todo-list-app.Client.csproj", "{32AA79DE-3120-4746-90FE-B2BCB8DAA393}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazor-todo-list-app.Client", "blazor-todo-list-app\Client\blazor-todo-list-app.Client.csproj", "{32AA79DE-3120-4746-90FE-B2BCB8DAA393}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-todo-list-app.Shared", "blazor-todo-list-app\Shared\blazor-todo-list-app.Shared.csproj", "{EE5440D8-E76E-4871-9A87-C8D7C04F1315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "blazor-todo-list-app.Shared", "blazor-todo-list-app\Shared\blazor-todo-list-app.Shared.csproj", "{EE5440D8-E76E-4871-9A87-C8D7C04F1315}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "blazor-todo-list-app.Entities", "blazor-todo-list-app.Entities\blazor-todo-list-app.Entities.csproj", "{235F29D5-B878-4899-96DF-F7ACB0B2843F}"
 EndProject

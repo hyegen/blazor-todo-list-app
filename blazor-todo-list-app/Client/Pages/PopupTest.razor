@@ -1,0 +1,21 @@
+﻿<h3>PopupTest</h3>
+@inject IModalService Modal
+
+
+<div class="form-group">
+
+    <div class="container">
+        <div class="btn-toolbar">
+
+        </div>
+    </div>
+
+</div>
+
+@code {
+
+    private void ShowAddTaskPopup()
+    {
+        Modal.Show<AddTask>("New Task");
+    }
+}

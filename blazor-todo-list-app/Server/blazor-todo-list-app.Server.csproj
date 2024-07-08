@@ -15,16 +15,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\blazor-todo-list-app.Common\blazor-todo-list-app.Common.csproj" />
     <ProjectReference Include="..\..\blazor-todo-list-app.Entities\blazor-todo-list-app.Entities.csproj" />
     <ProjectReference Include="..\Client\blazor-todo-list-app.Client.csproj" />
     <ProjectReference Include="..\Shared\blazor-todo-list-app.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 

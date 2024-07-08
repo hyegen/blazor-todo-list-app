@@ -4,6 +4,7 @@ using Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace blazortodolistapp.Server.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    partial class ToDoContextModelSnapshot : ModelSnapshot
+    [Migration("20240706070958_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +157,7 @@ namespace blazortodolistapp.Server.Migrations
                         {
                             Id = 1,
                             CommentId = 1,
-                            CreatedDate_ = new DateTime(2024, 7, 6, 15, 29, 9, 78, DateTimeKind.Local).AddTicks(8733),
+                            CreatedDate_ = new DateTime(2024, 7, 6, 10, 9, 58, 544, DateTimeKind.Local).AddTicks(372),
                             Description = "Math homeworks will be continued.",
                             IsCompleted = false,
                             Status = 3,
@@ -165,7 +168,7 @@ namespace blazortodolistapp.Server.Migrations
                         {
                             Id = 2,
                             CommentId = 2,
-                            CreatedDate_ = new DateTime(2024, 7, 6, 15, 29, 9, 78, DateTimeKind.Local).AddTicks(8743),
+                            CreatedDate_ = new DateTime(2024, 7, 6, 10, 9, 58, 544, DateTimeKind.Local).AddTicks(381),
                             Description = "Description of PHYSC.",
                             IsCompleted = true,
                             Status = 2,
@@ -176,7 +179,7 @@ namespace blazortodolistapp.Server.Migrations
                         {
                             Id = 3,
                             CommentId = 3,
-                            CreatedDate_ = new DateTime(2024, 7, 6, 15, 29, 9, 78, DateTimeKind.Local).AddTicks(8744),
+                            CreatedDate_ = new DateTime(2024, 7, 6, 10, 9, 58, 544, DateTimeKind.Local).AddTicks(383),
                             Description = "Hi from cpu :D.",
                             IsCompleted = true,
                             Status = 2,
@@ -186,7 +189,7 @@ namespace blazortodolistapp.Server.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate_ = new DateTime(2024, 7, 6, 15, 29, 9, 78, DateTimeKind.Local).AddTicks(8745),
+                            CreatedDate_ = new DateTime(2024, 7, 6, 10, 9, 58, 544, DateTimeKind.Local).AddTicks(384),
                             Description = "Buy new meal and others.",
                             IsCompleted = false,
                             Status = 1,
@@ -196,7 +199,7 @@ namespace blazortodolistapp.Server.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate_ = new DateTime(2024, 7, 6, 15, 29, 9, 78, DateTimeKind.Local).AddTicks(8746),
+                            CreatedDate_ = new DateTime(2024, 7, 6, 10, 9, 58, 544, DateTimeKind.Local).AddTicks(385),
                             Description = "Wash dishes xxxx",
                             IsCompleted = false,
                             Status = 1,
@@ -206,7 +209,7 @@ namespace blazortodolistapp.Server.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate_ = new DateTime(2024, 7, 6, 15, 29, 9, 78, DateTimeKind.Local).AddTicks(8747),
+                            CreatedDate_ = new DateTime(2024, 7, 6, 10, 9, 58, 544, DateTimeKind.Local).AddTicks(386),
                             Description = "Do vacuuming to home for a clean home :).",
                             IsCompleted = true,
                             Status = 2,

@@ -1,0 +1,295 @@
+﻿@* @page "/todolist"
+@using System.Text
+@using Newtonsoft.Json
+@inject IJSRuntime JsRuntime
+@inject HttpClient Http
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <button @onclick="showPopupAddTask" class="btn btn-primary mx-2">
+                        <i class="fa fa-plus"></i> Add Task
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button @onclick="DeleteSelectedTodo" class="btn btn-danger mx-2" disabled="@(!isRowSelected)">
+                        <i class="fa fa-trash"></i> Delete Task
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button @onclick="AddComment" class="btn btn-warning mx-2" disabled="@(!isRowSelected)">
+                        <i class="fa fa-edit"></i> Update Task
+                    </button>
+                </li>
+
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <div class="mt-3">
+                <button class="btn btn-secondary btn-block" @onclick="RefreshPage">Yenile</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@if (todos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (todos.Count() <= 0)
+{
+    <p><em><h3>You have no task :)</h3></em></p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CommentId</th>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Is Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var todo in todos)
+            {
+                <tr class="@GetSelectedClass(todo)" @onclick="() => SelectRow(todo)">
+                    <td>@todo.UserId</td>
+                    <td>@todo.CommentId</td>
+                    <td>@todo.TaskName</td>
+                    <td>@todo.Description</td>
+                    <td>@todo.Status</td>
+                    <td>@todo.Priority</td>
+                    <td>@todo.IsCompleted</td>
+                    <td>
+                        <button @onclick="showPopupAddTask" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                            Add a Comment
+                        </button>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Task_> todos;
+    private Task_ selectedTodo;
+    private bool isRowSelected => selectedTodo != null;
+
+    [CascadingParameter]
+    IModalService Modal { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        todos = await Http.GetFromJsonAsync<List<Task_>>("https://localhost:7000/api/todo/GetTodos") ?? new List<Task_>();
+    }
+
+    private void showPopupAddTask()
+    {
+        Modal.Show<AddTask>("Görev - Yeni");
+    }
+
+    private async Task DeleteSelectedTodo()
+    {
+        if (selectedTodo != null)
+        {
+            bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure?");
+            if (confirmed)
+            {
+                await Http.DeleteAsync($"https://localhost:7000/api/todo/DeleteTodo/{selectedTodo.Id}");
+                todos.Remove(selectedTodo);
+                selectedTodo = null;
+            }
+
+        }
+    }
+
+    private async Task AddComment()
+    {
+        if (selectedTodo != null)
+        {
+
+        }
+    }
+    private void SelectRow(Task_ todo)
+    {
+        selectedTodo = todo;
+    }
+
+    private string GetSelectedClass(Task_ todo)
+    {
+        return selectedTodo == todo ? "table-active" : string.Empty;
+    }
+    private async Task RefreshPage()
+    {
+        todos = await Http.GetFromJsonAsync<List<Task_>>("https://localhost:7000/api/todo/GetTodos") ?? new List<Task_>();
+    }
+}
+ *@
+
+    @page "/todolist"
+
+@inject HttpClient Http
+@inject IModalService Modal
+@inject IJSRuntime JsRuntime
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <button @onclick="showPopupAddTask" class="btn btn-primary mx-2">
+                        <i class="fa fa-plus"></i> Add Task
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button @onclick="DeleteSelectedTodo" class="btn btn-danger mx-2" disabled="@(!isRowSelected)">
+                        <i class="fa fa-trash"></i> Delete Task
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button @onclick="AddComment" class="btn btn-warning mx-2" disabled="@(!isRowSelected)">
+                        <i class="fa fa-edit"></i> Update Task
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <div class="mt-3">
+                <button class="btn btn-secondary btn-block" @onclick="RefreshPage">Yenile</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@if (todos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (todos.Count() <= 0)
+{
+    <p><em><h3>You have no task :)</h3></em></p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CommentId</th>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Is Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var todo in todos)
+            {
+                <tr class="@GetSelectedClass(todo)" @onclick="() => SelectRow(todo)">
+                    <td>@todo.UserId</td>
+                    <td>@todo.CommentId</td>
+                    <td>@todo.TaskName</td>
+                    <td>@todo.Description</td>
+                    <td>@todo.Status</td>
+                    <td>@todo.Priority</td>
+                    <td>@todo.IsCompleted</td>
+                    <td>
+                        <button @onclick="() => ShowAddCommentModal(todo)" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                            Add a Comment
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Task_> todos;
+    private Task_ selectedTodo;
+    private bool isRowSelected => selectedTodo != null;
+    [CascadingParameter] IModalService Modal_ { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        todos = await Http.GetFromJsonAsync<List<Task_>>("https://localhost:7000/api/todo/GetTodos") ?? new List<Task_>();
+    }
+
+    private void showPopupAddTask()
+    {
+        Modal.Show<AddTask>("Görev - Yeni");
+    }
+
+    // private async Task DeleteSelectedTodo()
+    // {
+    //     if (selectedTodo != null)
+    //     {
+    //         bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Silmek istediğinize eminmisiniz?");
+    //         if (confirmed)
+    //         {
+    //             await Http.DeleteAsync($"https://localhost:7000/api/todo/DeleteTodo/{selectedTodo.Id}");
+    //             todos.Remove(selectedTodo);
+    //             selectedTodo = null;
+    //         }
+
+    //     }
+    // }
+    private async Task DeleteSelectedTodo()
+    {
+        var confirmModal = Modal_.Show<ConfirmationModal>("Silmek İstediğinize Eminmisiniz?");
+
+        var modalResult = confirmModal.Result;
+
+        if (modalResult.IsCanceled == false)
+        {
+            await Http.DeleteAsync($"https://localhost:7000/api/todo/DeleteTodo/{selectedTodo.Id}");
+            todos.Remove(selectedTodo);
+            selectedTodo = null;
+
+        }
+    }
+
+
+    private async Task AddComment()
+    {
+        if (selectedTodo != null)
+        {
+            // Implement add comment logic
+        }
+    }
+
+    private void SelectRow(Task_ todo)
+    {
+        selectedTodo = todo;
+    }
+
+    private string GetSelectedClass(Task_ todo)
+    {
+        return selectedTodo == todo ? "table-active" : string.Empty;
+    }
+
+    private async Task RefreshPage()
+    {
+        todos = await Http.GetFromJsonAsync<List<Task_>>("https://localhost:7000/api/todo/GetTodos") ?? new List<Task_>();
+    }
+
+    private void ShowAddCommentModal(Task_ todo)
+    {
+        var parameters = new ModalParameters();
+        parameters.Add(nameof(todo), todo);
+
+        //  Modal_.Show<AddCommentModal>("Add Comment", parameters);
+    }
+}
